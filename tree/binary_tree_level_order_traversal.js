@@ -39,3 +39,17 @@ function dfs(node, level, res) {
   dfs(node.left, level+1, res);
   dfs(node.right, level + 1, res);
 }
+
+class Solution:
+    def levelOrder(self, root):
+        if root is None: return []
+        q = [[root]]
+
+        for level in q:
+          temp = []
+          for node in level:
+            if node.left: temp.append(node.left)
+            if node.right: temp.append(node.right)
+          if temp: q.append(temp)
+
+        return [[x.val for x in level] for level in q]
