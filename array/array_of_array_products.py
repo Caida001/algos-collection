@@ -16,23 +16,27 @@ output: [84, 24, 56, 42] # by calculating: [7*3*4, 2*3*4, 2*7*4, 2*7*3]
 
 def array_of_array_products(arr):
   if len(arr) <= 1: return []
-  res = [1]
+  res, curr = [1], 1
+
   for i in range(len(arr)-1):
     res.append(res[-1] * arr[i])
 
-  temp = 1
-  for j in range(len(arr)-2, -1, -1):
-    temp *= arr[j+1]
-    res[j] *= temp
+  for j in range(len(arr)-1, -1, -1):
+    res[j] = curr * res[j]
 
+    curr *= arr[j]
 
   return res
 
 
+
   """
 
-  arr=           [2, 3, 4, 5]
+  arr=              [2,  3,    4,   5]
   left_product = [1, 2, 2*3, 2*3*4]
+
+              [ 3*4*5 ,4*5 ,5  , 1]
+
                       20   5  1
          ans =   [3*4*5, 2*4*5, 2*3*5, 2*3*4]
   product[i] = product of all elements to left of i * products of all element to right of i
